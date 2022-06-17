@@ -1,7 +1,7 @@
-export class Token {
-    access_token: string;
+// export class Token {
+//     access_token: string;
 
-    constructor(){
-        this.access_token = "";
-    }
-}
+//     constructor(){
+//         this.access_token = "";
+//     }
+// }

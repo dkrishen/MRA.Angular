@@ -14,19 +14,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.authService.isAuthenticated()){
-      this.authService.logout();
-    }  
+    // if(this.authService.isAuthenticated()){
+    //   this.authService.logout();
+    // }  
   }
 
   login(email: string, password: string){
-    this.authService.login(email, password)
-      .subscribe(res => {
-        console.log(res)
-        this.router.navigate(['']);
-      }, error => {
-        alert('Wrong login or password')
-      })
+    // this.authService.login(email, password)
+    //   .subscribe(res => {
+    //     console.log(res)
+    //     this.router.navigate(['']);
+    //   }, error => {
+    //     alert('Wrong login or password')
+    //   })
   }
 
   registration(){
