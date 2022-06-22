@@ -24,6 +24,7 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -45,6 +46,7 @@ export function tokenGetter(){
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    OAuthModule.forRoot(),
 
     MatCardModule,
     MatInputModule,

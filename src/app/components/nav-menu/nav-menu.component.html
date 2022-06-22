@@ -7,5 +7,8 @@
   <span>Welcome</span>
   <div class="spacer"></div>
 
-  <a href="/login">Log Out</a>
+  <input type="submit" *ngIf="!token" (click)='login()' value="login">
+  <input type="submit" *ngIf="token" (click)='logout()' value="logout">
+
+  <!-- <a href="/login">Log Out</a> -->
 </div>

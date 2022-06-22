@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-wrapper',
@@ -6,5 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wrapper.component.css']
 })
 export class WrapperComponent {
- 
+
+  constructor(private oauthService: OAuthService){
+  }
+
+ get token(){
+  let claims:any = this.oauthService.getIdentityClaims();
+  return claims ? claims : null;
+ }
 }

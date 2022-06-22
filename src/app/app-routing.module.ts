@@ -16,6 +16,7 @@ const routes: Routes = [
       // {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]},
       {path: '', component: HomeComponent},
       {path: 'orders', component: OrdersComponent},
+      {path: '**', redirectTo: ''},
     ]
   }
   // {path: 'login', component: LoginComponent},
