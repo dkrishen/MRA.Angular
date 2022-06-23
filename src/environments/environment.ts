@@ -1,11 +1,14 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { authConfig } from "src/app/sso.config";
 
 export const environment = {
   production: false,
-  authApi: 'http://localhost:30577/',
-  backApi: 'http://localhost:64143/',
+ // authApi: 'http://localhost:30577/',
+  authApi: 'https://localhost:44396',
+ backApi: 'http://localhost:64143/',
+  // backApi: 'https://localhost:44346/',
   tokenWhiteListedDomains: ['localhost:64143']
 };
 

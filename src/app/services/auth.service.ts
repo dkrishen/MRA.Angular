@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { OAuthService } from 'angular-oauth2-oidc';
 // import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable, tap } from 'rxjs';
 import { AUTH_API_URL } from '../app-injection-tokens';
-// import { Token } from '../models/token';
+import { Token } from '../models/token';
 
 export const ACCESS_TOKEN_KEY = 'back_access_token'
 
@@ -16,10 +17,15 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     @Inject(AUTH_API_URL) private apiUrl: string,
+    private oauthService: OAuthService,
     // private jwtHelper: JwtHelperService,
     private router: Router 
-  ) { }
-
+  ) {  }
+  
+  updateToken(): void {
+    var token = this.oauthService.getAccessToken();
+    localStorage.setItem(ACCESS_TOKEN_KEY, token)
+  }
   //login(email: string, password: string): Observable<Token>{
     // return this.http.post<Token>(this.apiUrl + 'api/auth/login', {
     //   email, password

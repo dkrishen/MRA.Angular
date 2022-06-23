@@ -18,13 +18,14 @@ import { OrdersComponent } from './components/orders/orders.component';
 import { LoginComponent } from './components/login/login.component'
 import { AUTH_API_URL, BACK_API_URL } from './app-injection-tokens';
 import { environment } from 'src/environments/environment';
-import { ACCESS_TOKEN_KEY } from './services/auth.service';
+import { ACCESS_TOKEN_KEY, AuthService } from './services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { RegistrationComponent } from './components/registration/registration.component';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { JwtModule } from '@auth0/angular-jwt';
 
 export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -58,12 +59,12 @@ export function tokenGetter(){
 
     FormsModule,
 
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter,
-    //     allowedDomains: environment.tokenWhiteListedDomains
-    //   }
-    // })
+    JwtModule.forRoot({
+      config: {
+        tokenGetter,
+        allowedDomains: environment.tokenWhiteListedDomains
+      }
+    })
   ],
   providers: [{
     provide: AUTH_API_URL,
