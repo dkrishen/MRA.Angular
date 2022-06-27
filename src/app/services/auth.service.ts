@@ -1,13 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-// import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, tap } from 'rxjs';
-import { AUTH_API_URL } from '../app-injection-tokens';
-import { Token } from '../models/token';
+import { JwksValidationHandler } from 'angular-oauth2-oidc-jwks';
+import { authConfig } from '../sso.config';
 
-export const ACCESS_TOKEN_KEY = 'back_access_token'
+export const ACCESS_TOKEN_KEY = ''
 
 @Injectable({
   providedIn: 'root'
@@ -15,44 +11,31 @@ export const ACCESS_TOKEN_KEY = 'back_access_token'
 export class AuthService {
 
   constructor(
-    private http: HttpClient,
-    @Inject(AUTH_API_URL) private apiUrl: string,
     private oauthService: OAuthService,
-    // private jwtHelper: JwtHelperService,
-    private router: Router 
   ) {  }
   
   updateToken(): void {
     var token = this.oauthService.getAccessToken();
     localStorage.setItem(ACCESS_TOKEN_KEY, token)
   }
-  //login(email: string, password: string): Observable<Token>{
-    // return this.http.post<Token>(this.apiUrl + 'api/auth/login', {
-    //   email, password
-    // }). pipe(
-    //   tap(token => {
-    //     localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
-    //   })
-    // )
-  //}
-  
-  // isAuthenticated(): boolean {
-  //   var token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  //   return (token != null && !this.jwtHelper.isTokenExpired(token));
-  // }
 
-  // logout(): void {
-  //   localStorage.removeItem(ACCESS_TOKEN_KEY);
-  //   this.router.navigate(['']);
-  // }
+  isAuthenticate() : boolean{
+    let claims:any = this.oauthService.getIdentityClaims();
+    return claims ? true : false;
+  }
 
-  // registration(email: string, password: string, username:string): Observable<Token>{
-  //   return this.http.post<Token>(this.apiUrl + 'api/auth/registration', {
-  //     email, password, username
-  //   }). pipe(
-  //     tap(token => {
-  //       localStorage.setItem(ACCESS_TOKEN_KEY, token.access_token);
-  //     })
-  //   )
-  // }
+  login(){
+    this.oauthService.initImplicitFlow();
+  }
+
+  logout(){
+    this.oauthService.logOut();
+    this.updateToken();
+  }
+
+  configureSingleSignOn(){
+    this.oauthService.configure(authConfig);
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
 }

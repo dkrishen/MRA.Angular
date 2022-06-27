@@ -13,23 +13,9 @@ export class RegistrationComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  ngOnInit(): void {
-    // if(this.authService.isAuthenticated()){
-    //   this.authService.logout();
-    // }
-  }
+  ngOnInit(): void {  }
 
-  submit(email: string, username: string, password: string, confirmPassword: string){
-    // if(password == confirmPassword){
-    //   this.authService.registration(email, password, username)
-    //     .subscribe(res => {
-    //       console.log(res)
-    //       this.router.navigate(['']);
-    //     }, error => {
-    //       alert('Wrong login or password')
-    //     })
-    //   }
-  }
+  submit(email: string, username: string, password: string, confirmPassword: string){  }
 
   login(){
     this.router.navigate(['/login']);

@@ -3,10 +3,6 @@
 }
 
 .toolbar {
-  /* position: absolute; */
-  /* top: 0;
-  left: 0;
-  right: 0; */
   height: 60px;
   display: flex;
   align-items: center;
@@ -24,17 +20,15 @@
   opacity: 0.8;
 }
 
-/* input[type=submit] {
-  background-color: #04AA6D;
+input[type=submit] {
+  background-color: rgb(36, 167, 179);
   color: white;
-  padding: 14px 20px;
+  padding: 7px 10px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
 }
 
-
 input[type=submit]:hover {
-  opacity: 0.8;
-} */
+  opacity: 0.5;
+}

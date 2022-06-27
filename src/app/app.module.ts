@@ -40,7 +40,7 @@ export function tokenGetter(){
     WrapperComponent,
     NavMenuComponent,
     SideMenuComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,14 +66,15 @@ export function tokenGetter(){
       }
     })
   ],
-  providers: [{
-    provide: AUTH_API_URL,
-    useValue: environment.authApi
-  },
-  {
-    provide: BACK_API_URL,
-    useValue: environment.backApi    
-  }],
+  providers: [
+    {
+      provide: BACK_API_URL,
+      useValue: environment.backApi    
+    },
+    {
+      provide: AUTH_API_URL,
+      useValue: environment.authApi    
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

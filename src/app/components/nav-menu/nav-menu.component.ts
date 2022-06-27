@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -8,21 +9,36 @@ import { OAuthService } from 'angular-oauth2-oidc';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-
-  constructor(private oauthService: OAuthService){}
+  constructor(
+    private authService: AuthService, 
+    private userService: UserService
+  )
+  {
+    this.updateName();
+  }
+    
+  username: string | null = '';
 
   login(){
-    console.log("login");
-    this.oauthService.initImplicitFlow();
+    this.authService.login();
   }
   logout(){
-    console.log("logout");
-    this.oauthService.logOut();
+    this.authService.logout();
+  }
+
+  updateName(){
+    this.userService.getUserInfo()
+    .subscribe(
+      (data) => (this.username = data.name),
+      (error) => {
+        this.username = ''
+        console.log(error)
+      }
+    )
   }
 
   get token(){
-    let claims:any = this.oauthService.getIdentityClaims();
-    return claims ? claims : null;
+    return this.authService.isAuthenticate();
    }
 }
 
