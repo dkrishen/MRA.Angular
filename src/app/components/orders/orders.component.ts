@@ -10,7 +10,7 @@ import { OrderService } from 'src/app/services/order.service';
 export class OrdersComponent implements OnInit {
 
   orders: Order[] = []
-  columns = ['id', 'meetingRoomName', 'username', 'startTime', 'endTime']
+  columns = ['meetingRoomName', 'username', 'date', 'startTime', 'endTime']
 
   constructor(private orderService: OrderService) { }
 

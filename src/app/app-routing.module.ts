@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CalendarComponent } from './components/calendar/calendar.component';
 import { HomeComponent } from './components/home/home.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       {path: '', component: HomeComponent},
       {path: 'orders', component: OrdersComponent, canActivate: [AuthGuard]},
+      {path: 'calendar', component: CalendarComponent, canActivate: [AuthGuard]},
     ]
   },
   {path: '**', redirectTo: ''}

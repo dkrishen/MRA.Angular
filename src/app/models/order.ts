@@ -4,8 +4,9 @@ export class Order {
     meetingRoomName: string;
     username: string;
     userId: string;
-    startTime: number; //Date;
-    endTime: number; //Date;
+    date: number; //Date
+    startTime: string; //Date;
+    endTime: string; //Date;
 
     constructor(){
         this.id = "";
@@ -13,7 +14,8 @@ export class Order {
         this.meetingRoomId = "";
         this.username = "";
         this.userId = "";
-        this.startTime = Date.now();
-        this.endTime = Date.now();
+        this.date = Date.now();
+        this.startTime = "";
+        this.endTime = "";
     }
 }

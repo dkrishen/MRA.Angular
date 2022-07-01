@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BACK_API_URL } from '../app-injection-tokens';
+import { InputOrderFormDto } from '../models/InputOrderFormDto';
 import { Order } from '../models/order';
 import { AuthService } from './auth.service';
 
@@ -26,4 +27,9 @@ export class OrderService {
     return this.http.get<Order[]>(this.apiUrl + "api/order/GetOrdersByUser")
   }
 
+  postOrder(data: InputOrderFormDto): Observable<any> {
+    this.authService.updateToken(); // костыль
+    const body = {date: data.date, startTime: data.startTime, endTime: data.endTime}
+    return this.http.post<any>(this.apiUrl + "api/order/AddOrder", body);
+  }
 }
