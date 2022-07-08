@@ -1,19 +1,21 @@
+import { Guid } from 'guid-typescript';
+
 export class Order {
-    id: string;
-    meetingRoomId: string;
+    id: Guid;
+    meetingRoomId: Guid;
     meetingRoomName: string;
     username: string;
-    userId: string;
+    userId: Guid;
     date: number; //Date
     startTime: string; //Date;
     endTime: string; //Date;
 
     constructor(){
-        this.id = "";
+        this.id = Guid.create();
         this.meetingRoomName = "";
-        this.meetingRoomId = "";
+        this.meetingRoomId =  Guid.create();
         this.username = "";
-        this.userId = "";
+        this.userId =  Guid.create();
         this.date = Date.now();
         this.startTime = "";
         this.endTime = "";

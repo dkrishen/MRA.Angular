@@ -6,14 +6,25 @@ input {
     box-sizing: border-box;
 }
 
-input[type=submit] {
+.Submit {
     background-color: #04AA6D;
+}
+
+.Button {
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
+}
+
+.buttonBox{
+    width: 100%;
+}
+
+.Remove {
+    background-color: #aa3004;
 }
   
 input[type=submit]:hover {

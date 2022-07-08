@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Guid } from 'guid-typescript';
 import { Observable } from 'rxjs';
 import { BACK_API_URL } from '../app-injection-tokens';
 import { InputOrderFormDto } from '../models/InputOrderFormDto';
@@ -32,4 +33,24 @@ export class OrderService {
     const body = {date: data.date, startTime: data.startTime, endTime: data.endTime}
     return this.http.post<any>(this.apiUrl + "api/order/AddOrder", body);
   }
+
+  updateOrder(data: Order): Observable<any> {
+    this.authService.updateToken(); // костыль
+    const body = {
+      date: data.date, 
+      startTime: data.startTime, 
+      endTime: data.endTime, 
+      id: data.id, 
+      meetingRoomId: data.meetingRoomId,
+      userId: data.userId,
+    }
+    return this.http.put<any>(this.apiUrl + "api/order/UpdateOrder", body);
+  }
+
+  deleteOrder(id: Guid): Observable<any> {
+    this.authService.updateToken(); // костыль
+    const body = { id: id }
+    return this.http.delete<any>(this.apiUrl + "api/order/DeleteOrder", {body: body});
+  }
+  
 }
