@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CalendarOptions, EventClickArg, EventInput, EventSourceInput, FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import { DateClickArg } from '@fullcalendar/interaction';
 import { Order } from 'src/app/models/order';
@@ -6,6 +6,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { MatDialog } from '@angular/material/dialog'
 import { SelectDateDialogBoxComponent } from '../select-date-dialog-box/select-date-dialog-box.component';
 import { UserService } from 'src/app/services/user.service';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-calendar',
@@ -21,7 +22,8 @@ export class CalendarComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private dialog: MatDialog,
-    private userService: UserService) { 
+    private userService: UserService,
+    @Inject(DOCUMENT) private document: Document) { 
     this.createCalendar();
   }
 
@@ -31,14 +33,14 @@ export class CalendarComponent implements OnInit {
       this.orders = result
       console.log(this.orders);
       this.setEvents();
-      
+       
       this.calendarOptions.events = this.events;  
       console.log('updateeeeeeee')
     })
   }
 
   resetPage(){
-
+    this.document.location.reload();
   }
 
   updateName(){
@@ -166,6 +168,7 @@ export class CalendarComponent implements OnInit {
               });
             }
           }
+          this.resetPage();
         }
       }); 
     }

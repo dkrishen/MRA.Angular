@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog'
 import { InputOrderFormDto } from 'src/app/models/InputOrderFormDto';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Order } from 'src/app/models/order';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-select-date-dialog-box',
@@ -17,10 +18,22 @@ export class SelectDateDialogBoxComponent implements OnInit {
   public isOwner?: boolean;
   public createMode?: boolean;
   public orders?: Order[];
+  public previousStartTime?: string;
+  public previousEndTime?: string;
 
-  constructor(public dialogRef: MatDialogRef<SelectDateDialogBoxComponent>) { }
+  constructor(public dialogRef: MatDialogRef<SelectDateDialogBoxComponent>,
+    @Inject(DOCUMENT) private document: Document) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.previousStartTime = this.startTime;
+    this.previousEndTime = this.endTime;
+
+    var st = this.document.getElementById("startTimeInput")
+    st?.setAttribute("value", this.startTime ? this.startTime : "")
+    
+    var et = this.document.getElementById("endTimeInput")
+    et?.setAttribute("value", this.endTime ? this.endTime : "")
+   }
 
   onSubmit(date: any, startTime: any, endTime: any){
     var data = new InputOrderFormDto();
@@ -79,9 +92,15 @@ export class SelectDateDialogBoxComponent implements OnInit {
 
     var collision = dayOrders?.filter(order => {
         if(data.startTime != undefined && data.endTime != undefined){
-          if((data.startTime > order.startTime && data.startTime < order.endTime)||
+
+          // if(order.startTime==this.previousStartTime&&order.endTime==this.previousEndTime){
+          //   return false
+          // }
+
+          if(((data.startTime > order.startTime && data.startTime < order.endTime)||
           (data.endTime > order.startTime && data.endTime < order.endTime) ||
-          (order.startTime > data.startTime && order.startTime < data.endTime)){
+          (order.startTime > data.startTime && order.startTime < data.endTime))&&
+          !(order.startTime==this.previousStartTime&&order.endTime==this.previousEndTime)){
             return true;
           }
           else return false;
