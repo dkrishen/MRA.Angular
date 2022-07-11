@@ -33,7 +33,6 @@
             <mat-header-cell *matHeaderCellDef> endTime </mat-header-cell>
             <mat-cell *matCellDef="let order"> {{order.endTime}} </mat-cell>
         </ng-container>
-
         <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: columns;"></mat-row>
     </mat-table>

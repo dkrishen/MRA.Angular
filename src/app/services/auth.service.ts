@@ -26,6 +26,7 @@ export class AuthService {
 
   login(){
     this.oauthService.initImplicitFlow();
+    this.updateToken();
   }
 
   logout(){

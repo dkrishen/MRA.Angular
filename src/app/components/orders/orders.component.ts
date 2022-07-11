@@ -20,5 +20,4 @@ export class OrdersComponent implements OnInit {
         this.orders = result
       })
   }
-
 }

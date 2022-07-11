@@ -19,23 +19,23 @@ export class OrderService {
   ) { }
 
   getAllOrders(): Observable<Order[]> {
-    this.authService.updateToken(); // костыль
+    this.authService.updateToken();
     return this.http.get<Order[]>(this.apiUrl + "api/order/GetAllOrders")
   }
   
   getOrdersByUser(): Observable<Order[]> { 
-    this.authService.updateToken(); // костыль
+    this.authService.updateToken();
     return this.http.get<Order[]>(this.apiUrl + "api/order/GetOrdersByUser")
   }
 
   postOrder(data: InputOrderFormDto): Observable<any> {
-    this.authService.updateToken(); // костыль
+    this.authService.updateToken();
     const body = {date: data.date, startTime: data.startTime, endTime: data.endTime}
     return this.http.post<any>(this.apiUrl + "api/order/AddOrder", body);
   }
 
   updateOrder(data: Order): Observable<any> {
-    this.authService.updateToken(); // костыль
+    this.authService.updateToken();
     const body = {
       date: data.date, 
       startTime: data.startTime, 
@@ -48,9 +48,8 @@ export class OrderService {
   }
 
   deleteOrder(id: Guid): Observable<any> {
-    this.authService.updateToken(); // костыль
+    this.authService.updateToken();
     const body = { id: id }
     return this.http.delete<any>(this.apiUrl + "api/order/DeleteOrder", {body: body});
   }
-  
 }

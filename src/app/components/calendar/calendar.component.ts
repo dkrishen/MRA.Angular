@@ -31,11 +31,8 @@ export class CalendarComponent implements OnInit {
     this.orderService.getAllOrders()
     .subscribe(result => {
       this.orders = result
-      console.log(this.orders);
       this.setEvents();
-       
       this.calendarOptions.events = this.events;  
-      console.log('updateeeeeeee')
     })
   }
 
@@ -61,7 +58,7 @@ export class CalendarComponent implements OnInit {
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
     firstDay: 1,
-    dateClick: this.handleDateClick.bind(this), // bind is important!
+    dateClick: this.handleDateClick.bind(this),
     eventClick: this.handleEventClick.bind(this), 
   };
 
@@ -70,26 +67,17 @@ export class CalendarComponent implements OnInit {
       width: '250px',
       data: {'title':'create order'}
     });
+
     dialogRef.componentInstance.title = "Create order"
     dialogRef.componentInstance.date = (arg.date.getMonth()+1)+'/'+arg.date.getDate()+'/'+arg.date.getFullYear()
     dialogRef.componentInstance.isOwner = true;
     dialogRef.componentInstance.createMode = true;
     dialogRef.componentInstance.orders = this.orders;
 
-    // dialogRef.componentInstance.startTime = "12:30";
-    // dialogRef.componentInstance.endTime = "12:45";
-
-
     dialogRef.afterClosed()
     .subscribe(data => {
-
       if(data != undefined){
-
-        
-        console.log('RETURNED VALUE' + data.date + ' ' + data.startTime + ' ' + data.endTime);
-
         this.orderService.postOrder(data).subscribe(() => {
-          console.log("yhoo")
           this.resetPage()
         });
       }
@@ -97,27 +85,14 @@ export class CalendarComponent implements OnInit {
   }
   
   handleEventClick(arg: EventClickArg) {
-    console.log(arg)
-
     var startTime = arg.event._def.title.slice(0, 5)
     var endTime = arg.event._def.title.slice(6, 11)
     var username = arg.event._def.title.slice(12, arg.event._def.title.length)
-
-    console.log(arg.event._context.calendarApi.getCurrentData().currentDate)
-    console.log(arg.event._def.title)
-    console.log(startTime)
-    console.log(endTime)
-    console.log(username)
-
-    // alert('event click! ' + arg.view.title)
 
     var order = this.orders.find(o => {
       if(o.username == username && o.startTime == startTime && o.endTime == endTime) return true
       else return false
     })
-
-    console.log(order)
-    console.log(this.orders)
 
     if(order != undefined){
       var date = new Date(order.date)
@@ -126,6 +101,7 @@ export class CalendarComponent implements OnInit {
         width: '250px',
         data: {'title':(order?.username == this.currentUsername ? 'edit order' : 'order info')}
       });
+
       dialogRef.componentInstance.title = (order?.username == this.currentUsername ? 'edit order' : 'order info')
       dialogRef.componentInstance.date = (date.getMonth()+1)+'/'+date.getDate()+'/'+date.getFullYear()
       dialogRef.componentInstance.startTime = startTime;
@@ -134,28 +110,18 @@ export class CalendarComponent implements OnInit {
       dialogRef.componentInstance.createMode = false;
       dialogRef.componentInstance.orders = this.orders;
 
-      // order.startTime = "";
-
       dialogRef.afterClosed()
       .subscribe(data => {
-        // console.log('RETURNED VALUE' + data.date + ' ' + data.startTime + ' ' + data.endTime);
-        console.log(data);
         if(data != undefined){
 
           if(data){
-            console.log("TRUE")
-            console.log(order)
-            
             if(order != undefined){
               order.startTime = data.startTime;
               order.endTime = data.endTime;
               order.date = data.date;
-              var tmp = order.id.toString();
-              
-              
+
               this.orderService.updateOrder(order).subscribe(() => {
-                console.log("updated")
-                
+                this.resetPage()
               });
             
             }
@@ -163,19 +129,16 @@ export class CalendarComponent implements OnInit {
           else {
             if(order != undefined){
               this.orderService.deleteOrder(order.id).subscribe(() => {
-                console.log("deleted")
-                
+                this.resetPage();
               });
             }
           }
-          this.resetPage();
         }
       }); 
     }
   }
 
   setEvents(){
-    
     this.orders.forEach(order => {
       var date = new Date(order.date)
 
@@ -187,7 +150,5 @@ export class CalendarComponent implements OnInit {
       }
       this.events.push(event);
     });
-
-    console.log('result: ' + this.events)
   }
 }

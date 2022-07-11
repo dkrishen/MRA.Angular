@@ -1,7 +1,7 @@
 export class InputOrderFormDto {
     username?: string;
-    startTime?: string; //Date;
-    endTime?: string; //Date;
+    startTime?: string;
+    endTime?: string;
     date?: string;
 
     constructor(){

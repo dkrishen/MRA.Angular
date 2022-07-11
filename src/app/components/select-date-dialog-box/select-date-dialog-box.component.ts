@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog'
 import { InputOrderFormDto } from 'src/app/models/InputOrderFormDto';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -35,7 +35,7 @@ export class SelectDateDialogBoxComponent implements OnInit {
     et?.setAttribute("value", this.endTime ? this.endTime : "")
    }
 
-  onSubmit(date: any, startTime: any, endTime: any){
+  onSubmit(){
     var data = new InputOrderFormDto();
 
     data.date = this.date;
@@ -51,14 +51,10 @@ export class SelectDateDialogBoxComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  updateEventDate(type: string, event: MatDatepickerInputEvent<Date>) {
+  updateEventDate(event: MatDatepickerInputEvent<Date>) {
     if(event.value?.getMonth() != undefined) {
       this.date = (event.value?.getMonth()+1) + '/' + (event.value?.getDate()) + '/' + event.value?.getFullYear()
     }
-  }
-  
-  updateStartTime(){
-    console.log("UPDATE")
   }
   
   setStartTime(eventValue: string){
@@ -92,11 +88,6 @@ export class SelectDateDialogBoxComponent implements OnInit {
 
     var collision = dayOrders?.filter(order => {
         if(data.startTime != undefined && data.endTime != undefined){
-
-          // if(order.startTime==this.previousStartTime&&order.endTime==this.previousEndTime){
-          //   return false
-          // }
-
           if(((data.startTime > order.startTime && data.startTime < order.endTime)||
           (data.endTime > order.startTime && data.endTime < order.endTime) ||
           (order.startTime > data.startTime && order.startTime < data.endTime))&&

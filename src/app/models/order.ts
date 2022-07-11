@@ -6,9 +6,9 @@ export class Order {
     meetingRoomName: string;
     username: string;
     userId: Guid;
-    date: number; //Date
-    startTime: string; //Date;
-    endTime: string; //Date;
+    date: number;
+    startTime: string;
+    endTime: string;
 
     constructor(){
         this.id = Guid.create();

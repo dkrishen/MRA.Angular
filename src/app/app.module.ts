@@ -16,13 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { MatDatepickerModule} from '@angular/material/datepicker'
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
-// import {NgxMaterialTimepicker24HoursFaceComponent} from 'ngx-material-timepicker';
-// import {NgxMaterialTime}from'ngx-material-timepicker';
-
-
 import { HomeComponent } from './components/home/home.component';
 import { OrdersComponent } from './components/orders/orders.component';
-import { LoginComponent } from './components/login/login.component'
 import { AUTH_API_URL, BACK_API_URL } from './app-injection-tokens';
 import { environment } from 'src/environments/environment';
 import { ACCESS_TOKEN_KEY, AuthService } from './services/auth.service';
@@ -30,7 +25,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -44,7 +38,7 @@ export function tokenGetter(){
   return localStorage.getItem(ACCESS_TOKEN_KEY);
 }
 
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+FullCalendarModule.registerPlugins([
   dayGridPlugin,
   interactionPlugin
 ]);
@@ -54,11 +48,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AppComponent,
     HomeComponent,
     OrdersComponent,
-    LoginComponent,
     WrapperComponent,
     NavMenuComponent,
     SideMenuComponent,
-    RegistrationComponent,
     CalendarComponent,
     SelectDateDialogBoxComponent
   ],
