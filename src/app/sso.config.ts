@@ -1,7 +1,7 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
 
 export const authConfig: AuthConfig = {
-  issuer: 'https://localhost:44396',
+  issuer: 'http://localhost:5000',
   redirectUri: window.location.origin + '/',
   clientId: 'MRAAngular',
   dummyClientSecret: 'AngularSecret',

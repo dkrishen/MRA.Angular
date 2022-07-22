@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  authApi: 'https://localhost:44396/',
-  backApi: 'http://localhost:64143/',
-  tokenWhiteListedDomains: ['localhost:64143', 'localhost:44396']
+  authApi: 'http://localhost:5000/',
+  backApi: 'http://localhost:5100/',
+  tokenWhiteListedDomains: ['localhost:5100', 'localhost:5000']
 };

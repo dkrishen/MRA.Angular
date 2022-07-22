@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { CalendarOptions, EventClickArg, EventInput, EventSourceInput, FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarOptions, EventClickArg, EventInput } from '@fullcalendar/angular';
 import { DateClickArg } from '@fullcalendar/interaction';
 import { Order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
